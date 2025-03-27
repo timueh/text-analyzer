@@ -9,6 +9,6 @@ import (
 
 func main() {
 	log.Println("listening and serving on port 8080")
-	http.HandleFunc("/zipf", api.HandleZipf)
+	http.HandleFunc("/zipf", api.EnableCORS(api.HandleZipf))
 	http.ListenAndServe(":8080", nil)
 }
