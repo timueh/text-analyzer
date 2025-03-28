@@ -10,15 +10,18 @@ function App() {
     fetchData();
   }, []);
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     event.preventDefault();
     setText(event.target.value);
     fetchData();
   };
 
+  const backendUrl =
+    import.meta.env.VITE_APP_API_URL || 'http://localhost:8080';
+
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8080/zipf', {
+      const response = await fetch(`${backendUrl}/zipf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,8 +36,8 @@ function App() {
 
       const result = await response.json();
       setData(result);
-    } catch (error) {
-      throw new Error(error);
+    } catch {
+      throw new Error('Unexpected error');
     }
   };
 

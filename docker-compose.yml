@@ -1,0 +1,19 @@
+services:
+  backend:
+    build:
+      context: ./zipfback
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    user: appuser
+
+  frontend:
+    build:
+      context: ./zipfront
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    environment:
+      - VITE_APP_API_URL=http://backend:8080
