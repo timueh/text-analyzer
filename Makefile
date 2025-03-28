@@ -1,5 +1,8 @@
 test:
-	@go test ./... -v --failfast
+	@cd zipfback && go test ./... -v --failfast
 
 run:
-	@go run ./cmd/api
+	@cd zipfback && go run ./cmd/api
+
+up:
+	@docker compose up
