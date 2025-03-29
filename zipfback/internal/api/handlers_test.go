@@ -10,11 +10,10 @@ import (
 
 func TestNewLettersRoute(t *testing.T) {
 	data := `{"data": "eehe"}`
-	req := httptest.NewRequest(http.MethodPost, "/zipf", strings.NewReader(data))
+	req := httptest.NewRequest(http.MethodPost, "/foo", strings.NewReader(data))
 	req.Header.Set("Content-Type", "application/json")
 
 	w := httptest.NewRecorder()
-
 	HandleLetterFrequency(w, req)
 
 	if w.Code != http.StatusOK {
