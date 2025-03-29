@@ -39,7 +39,10 @@ func (w *WordFrequency) Run(s string) Result {
 	sClean := re.ReplaceAllString(s, "")
 
 	for _, word := range strings.Split(sClean, " ") {
-		r[strings.ToLower(word)]++
+		w := strings.ToLower(word)
+		if w != "" {
+			r[w]++
+		}
 	}
 
 	return r

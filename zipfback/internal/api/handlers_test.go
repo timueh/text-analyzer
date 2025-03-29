@@ -15,7 +15,7 @@ func TestNewLettersRoute(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	HandleZipf(w, req)
+	HandleLetterFrequency(w, req)
 
 	if w.Code != http.StatusOK {
 		t.Errorf("got %d, want %d", w.Code, http.StatusOK)

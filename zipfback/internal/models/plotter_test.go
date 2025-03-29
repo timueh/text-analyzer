@@ -31,7 +31,8 @@ func TestPlotter(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.desc, func(t *testing.T) {
-			p := NewRechartsPlotter(c.r)
+			p := NewRechartsPlotter()
+			p.Populate(c.r)
 
 			data, err := json.Marshal(p)
 			if err != nil {

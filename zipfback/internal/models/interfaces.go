@@ -14,12 +14,6 @@ type Analyzer interface {
 }
 
 type Plotter interface {
-	Convert() []Data
-	sort(d []Data) []Data
+	Populate(r Result)
 	json.Marshaler
-}
-
-type AnalyzerPlotter interface {
-	Analyzer
-	Plotter
 }
