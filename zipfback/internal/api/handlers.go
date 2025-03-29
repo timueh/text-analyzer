@@ -26,13 +26,15 @@ func HandleZipf(w http.ResponseWriter, r *http.Request) {
 	log.Println("decoded body")
 
 	// process data
-	l := models.NewLetters(b.Data)
+	l := models.NewLetterFrequency()
+	p := models.NewRechartsPlotter(l.Run(b.Data))
+
 	log.Println("processed data")
 
 	// write response
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(l)
+	json.NewEncoder(w).Encode(p)
 	log.Println("prepared response")
 }
 
