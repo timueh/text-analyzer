@@ -16,22 +16,26 @@ function App() {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    fetchLetters();
+    fetchRoute('letters', setLetters);
+    fetchRoute('words', setWords);
   }, []);
 
   const handleChange = (event: any) => {
     event.preventDefault();
     setText(event.target.value);
-    fetchLetters();
-    fetchWords();
+    fetchRoute('letters', setLetters);
+    fetchRoute('words', setWords);
   };
 
   const backendUrl =
     import.meta.env.VITE_APP_API_URL || 'http://localhost:8080';
 
-  const fetchLetters = async () => {
+  const fetchRoute = async (
+    route: string,
+    setState: React.Dispatch<React.SetStateAction<never[]>>
+  ) => {
     try {
-      const response = await fetch(`${backendUrl}/letters`, {
+      const response = await fetch(`${backendUrl}/${route}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,29 +49,7 @@ function App() {
       }
 
       const result = await response.json();
-      setLetters(result);
-    } catch {
-      throw new Error('Unexpected error');
-    }
-  };
-
-  const fetchWords = async () => {
-    try {
-      const response = await fetch(`${backendUrl}/words`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({ data: text }),
-      });
-
-      if (!response.ok) {
-        throw new Error('response was not ok');
-      }
-
-      const result = await response.json();
-      setWords(result);
+      setState(result);
     } catch {
       throw new Error('Unexpected error');
     }
@@ -76,20 +58,16 @@ function App() {
   return (
     <>
       <div>
-        <h2>
-          Enter arbitrary text, and observe the distribution of the letter
-          frequencies.
-        </h2>
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             width: '100%',
-            height: '300px', // Adjust height as needed
+            height: '300px',
             boxSizing: 'border-box',
-            // border: '1px solid black',
           }}
         >
+          <h2>Enter some arbitrary text, and then observe the frequencies.</h2>
           <div style={{ flex: 1, boxSizing: 'border-box', padding: '10px' }}>
             <textarea
               style={{
@@ -102,6 +80,7 @@ function App() {
             />
           </div>
           <div style={{ flex: 1, boxSizing: 'border-box', padding: '10px' }}>
+            <hr3>Letter frequencies</hr3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart width={600} height={300} data={letters}>
                 <CartesianGrid />
@@ -113,6 +92,7 @@ function App() {
             </ResponsiveContainer>
           </div>
           <div style={{ flex: 1 }}>
+            <h3>Word frequencies</h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart width={600} height={300} data={words}>
                 <CartesianGrid />
