@@ -67,7 +67,7 @@ function App() {
             boxSizing: 'border-box',
           }}
         >
-          <h2>Enter some arbitrary text, and then observe the frequencies.</h2>
+          <h3>Enter some arbitrary text, and then observe the frequencies.</h3>
           <div style={{ flex: 1, boxSizing: 'border-box', padding: '10px' }}>
             <textarea
               style={{
@@ -80,7 +80,7 @@ function App() {
             />
           </div>
           <div style={{ flex: 1, boxSizing: 'border-box', padding: '10px' }}>
-            <hr3>Letter frequencies</hr3>
+            <h3>Letter frequencies</h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart width={600} height={300} data={letters}>
                 <CartesianGrid />

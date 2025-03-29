@@ -5,4 +5,4 @@ run:
 	@cd zipfback && go run ./cmd/api
 
 up:
-	@docker compose up
+	@docker compose up --build
