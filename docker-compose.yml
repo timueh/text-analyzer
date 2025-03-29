@@ -1,19 +1,28 @@
 services:
+  nginx_reverse_proxy:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
   backend:
     build:
       context: ./zipfback
       dockerfile: Dockerfile
-    ports:
-      - 8080:8080
+    expose:
+      - 8080
     user: appuser
 
   frontend:
     build:
       context: ./zipfront
       dockerfile: Dockerfile
-    ports:
-      - 80:80
+    expose:
+      - 80
     depends_on:
       - backend
     environment:
-      - VITE_APP_API_URL=http://backend:8080
+      - VITE_APP_API_URL=http://backend:8080/api

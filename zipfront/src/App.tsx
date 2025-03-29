@@ -27,8 +27,7 @@ function App() {
     fetchRoute('words', setWords);
   };
 
-  const backendUrl =
-    import.meta.env.VITE_APP_API_URL || 'http://localhost:8080';
+  const backendUrl = import.meta.env.VITE_APP_API_URL || 'http://localhost/api';
 
   const fetchRoute = async (
     route: string,
