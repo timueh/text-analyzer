@@ -10,7 +10,7 @@ services:
       - backend
   backend:
     build:
-      context: ./zipfback
+      context: ./backend
       dockerfile: Dockerfile
     expose:
       - 8080
@@ -18,7 +18,7 @@ services:
 
   frontend:
     build:
-      context: ./zipfront
+      context: ./frontend
       dockerfile: Dockerfile
     expose:
       - 80
